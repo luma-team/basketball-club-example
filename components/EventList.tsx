@@ -39,6 +39,7 @@ export const EventList = async () => {
             {new Date(event.start_at).toLocaleString(undefined, {
               month: "long",
               day: "numeric",
+              timeZone: "America/New_York",
               year: "numeric",
               hour: "numeric",
               minute: "2-digit",
