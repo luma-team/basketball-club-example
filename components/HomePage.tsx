@@ -24,7 +24,7 @@ export function HomePage() {
               </div>
 
               <div className="space-y-4">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+                <h2 className="text-3xl font-bold sm:text-xl md:text-3xl">
                   Upcoming Events
                 </h2>
 
