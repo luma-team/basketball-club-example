@@ -14,3 +14,7 @@ pnpm install
 # Run the web server
 pnpm dev
 ```
+
+## Configuration
+
+You’ll need to use your own Luma API key and add it to a new file `.env.local`. You can use the `.env.local.template` as a starting point.
