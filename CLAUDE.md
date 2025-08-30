@@ -50,7 +50,7 @@ bun lint
 **Luma API Integration** (`components/EventList.tsx`):
 
 - Server-side data fetching using native fetch
-- API endpoint: `https://api.lu.ma/public/v1/calendar/list-events`
+- API endpoint: `https://public-api.luma.com/v1/calendar/list-events`
 - Requires `LUMA_API_KEY` environment variable
 - Returns event data with structure: `{ api_id, event: { name, start_at, url, ... } }`
 

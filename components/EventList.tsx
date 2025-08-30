@@ -10,13 +10,16 @@ type EventData = {
 };
 
 async function getEvents(): Promise<EventData[]> {
-  const res = await fetch("https://api.lu.ma/public/v1/calendar/list-events", {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      "x-luma-api-key": process.env.LUMA_API_KEY as string,
+  const res = await fetch(
+    "https://public-api.luma.com/v1/calendar/list-events",
+    {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        "x-luma-api-key": process.env.LUMA_API_KEY as string,
+      },
     },
-  });
+  );
 
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
