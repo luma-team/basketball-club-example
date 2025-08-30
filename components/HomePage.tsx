@@ -34,8 +34,8 @@ export function HomePage() {
             </div>
 
             {/* Events Section */}
-            <div className="mt-16">
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-8">
+            <div className="mt-16 max-w-2xl mx-auto">
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
                 Upcoming Events
               </h2>
 
