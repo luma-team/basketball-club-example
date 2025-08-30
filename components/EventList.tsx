@@ -10,13 +10,16 @@ type EventData = {
 };
 
 async function getEvents(): Promise<EventData[]> {
-  const res = await fetch("https://api.lu.ma/public/v1/calendar/list-events", {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      "x-luma-api-key": process.env.LUMA_API_KEY as string,
+  const res = await fetch(
+    "https://public-api.luma.com/v1/calendar/list-events",
+    {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        "x-luma-api-key": process.env.LUMA_API_KEY as string,
+      },
     },
-  });
+  );
 
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
@@ -30,28 +33,42 @@ async function getEvents(): Promise<EventData[]> {
 export const EventList = async () => {
   const events = await getEvents();
   return (
-    <div className="grid gap-4">
+    <div className="grid gap-6 max-w-2xl mx-auto">
       {events.map(({ event, api_id }) => (
-        <div className="grid gap-1" key={api_id}>
-          <h3 className="text-lg font-semibold">{event.name}</h3>
-
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            {new Date(event.start_at).toLocaleString(undefined, {
-              month: "long",
-              day: "numeric",
-              timeZone: "America/New_York",
-              year: "numeric",
-              hour: "numeric",
-              minute: "2-digit",
-            })}
-          </p>
-
-          <p className="text-sm text-pink-500 dark:text-pink-400">
-            <a href={event.url} target="_blank">
-              Open Event
-            </a>
-          </p>
-        </div>
+        <a
+          href={event.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group block"
+          key={api_id}
+        >
+          <div className="flex items-center gap-4 p-4 rounded-xl bg-white dark:bg-gray-800 hover:shadow-lg transition-shadow duration-200 border border-gray-200 dark:border-gray-700">
+            {event.cover_url && (
+              <div className="flex-shrink-0">
+                <img
+                  src={event.cover_url}
+                  alt={event.name}
+                  className="w-20 h-20 object-cover rounded-lg"
+                />
+              </div>
+            )}
+            <div className="flex-1 min-w-0">
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                {event.name}
+              </h3>
+              <p className="text-base text-gray-600 dark:text-gray-400 mt-1">
+                {new Date(event.start_at).toLocaleString(undefined, {
+                  month: "long",
+                  day: "numeric",
+                  timeZone: "America/New_York",
+                  year: "numeric",
+                  hour: "numeric",
+                  minute: "2-digit",
+                })}
+              </p>
+            </div>
+          </div>
+        </a>
       ))}
     </div>
   );
