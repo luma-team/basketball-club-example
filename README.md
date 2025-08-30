@@ -10,10 +10,10 @@ For this project, we are using [Next.js](https://nextjs.org/docs) and the [Luma 
 
 ```sh
 # Install dependencies
-pnpm install
+bun install
 
 # Run the web server
-pnpm dev
+bun dev
 ```
 
 ## Configuration
