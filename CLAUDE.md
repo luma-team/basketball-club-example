@@ -4,64 +4,27 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Next.js application that demonstrates integration with the Luma API for a fictional basketball club in NYC. The project shows how to fetch and display event data from Luma's calendar API.
+Next.js app demonstrating the Luma API for a fictional NYC basketball club. Fetches and displays event data from Luma's calendar API.
 
 ## Development Commands
 
 ```bash
-# Install dependencies (using bun)
-bun install
-
-# Run development server
-bun dev
-
-# Build for production
-bun build
-
-# Start production server
-bun start
-
-# Run linting
-bun lint
+bun install    # Install dependencies
+bun dev        # Dev server
+bun build      # Production build
+bun start      # Production server
+bun lint       # ESLint
 ```
 
 ## Architecture
 
-### Tech Stack
+- **Framework**: Next.js 15 (App Router)
+- **Language**: TypeScript (strict mode, `@/*` path alias)
+- **Styling**: Tailwind CSS v4
+- **UI**: Custom components + Radix UI primitives
 
-- **Framework**: Next.js 14 with App Router
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS with CSS-in-JS utilities
-- **UI Components**: Custom components with Radix UI primitives
+### Luma API Integration
 
-### Project Structure
+`components/EventList.tsx` is an async server component that fetches events from `https://public-api.luma.com/v1/calendar/list-events` using the `LUMA_API_KEY` env var (set in `.env.local`, template in `.env.local.template`). Response shape: `{ entries: [{ api_id, event: { name, start_at, cover_url, url } }] }`.
 
-- `app/`: Next.js App Router pages and layouts
-  - `page.tsx`: Root page that renders HomePage component
-  - `layout.tsx`: Root layout with metadata and global styles
-- `components/`: React components
-  - `HomePage.tsx`: Main homepage layout
-  - `EventList.tsx`: Server component that fetches and displays Luma events
-- `lib/`: Utility functions
-  - `utils.ts`: Contains `cn()` helper for className merging
-
-### Key Integration Points
-
-**Luma API Integration** (`components/EventList.tsx`):
-
-- Server-side data fetching using native fetch
-- API endpoint: `https://public-api.luma.com/v1/calendar/list-events`
-- Requires `LUMA_API_KEY` environment variable
-- Returns event data with structure: `{ api_id, event: { name, start_at, url, ... } }`
-
-### Environment Configuration
-
-Create `.env.local` from `.env.local.template`:
-
-- `LUMA_API_KEY`: Required for Luma API access
-
-### TypeScript Configuration
-
-- Path alias: `@/*` maps to project root
-- Strict mode enabled
-- Next.js plugin configured
+`app/calendar/page.tsx` embeds a Luma calendar via iframe.
