@@ -5,13 +5,7 @@ export default function IframePage() {
         <h1 className="text-3xl font-bold mb-6">Register for an Event</h1>
         <iframe
           src="https://luma.com/embed/event/evt-jn2FAKqVE5cUJsM/simple"
-          width="600"
-          height="450"
-          frameBorder="0"
-          style={{
-            border: "1px solid #bfcbda88",
-            borderRadius: "4px",
-          }}
+          className="w-full sm:w-[600px] h-[450px] rounded border border-[#bfcbda88]"
           allow="fullscreen; payment"
           aria-hidden="false"
           tabIndex={0}
