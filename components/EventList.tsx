@@ -1,4 +1,4 @@
-type EventData = {
+export type EventData = {
   api_id: string;
   event: {
     api_id: string;
@@ -9,7 +9,7 @@ type EventData = {
   };
 };
 
-async function getEvents(): Promise<EventData[]> {
+export async function fetchEvents(): Promise<EventData[]> {
   const res = await fetch(
     "https://public-api.luma.com/v1/calendar/list-events",
     {
@@ -22,16 +22,22 @@ async function getEvents(): Promise<EventData[]> {
   );
 
   if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
+    console.error(`Luma API error: ${res.status} ${await res.text()}`);
+    return [];
   }
 
   const data = (await res.json()) as { entries: EventData[] };
   return data.entries;
 }
 
-export const EventList = async () => {
-  const events = await getEvents();
+export const EventList = ({ events }: { events: EventData[] }) => {
+  if (events.length === 0) {
+    return (
+      <div className="max-w-2xl mx-auto text-center text-gray-500 dark:text-gray-400 py-8">
+        No upcoming events.
+      </div>
+    );
+  }
   return (
     <div className="grid gap-6 max-w-2xl mx-auto">
       {events.map(({ event, api_id }) => (

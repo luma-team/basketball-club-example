@@ -1,6 +1,6 @@
-import { EventList } from "@/components/EventList";
+import { EventList, type EventData } from "@/components/EventList";
 
-export function HomePage() {
+export function HomePage({ events }: { events: EventData[] }) {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
       <main className="flex-1">
@@ -39,7 +39,7 @@ export function HomePage() {
                 Upcoming Events
               </h2>
 
-              <EventList />
+              <EventList events={events} />
             </div>
           </div>
         </section>

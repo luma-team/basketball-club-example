@@ -18,13 +18,12 @@ bun lint       # ESLint
 
 ## Architecture
 
-- **Framework**: Next.js 15 (App Router)
+- **Framework**: Next.js 16 (Pages Router)
 - **Language**: TypeScript (strict mode, `@/*` path alias)
 - **Styling**: Tailwind CSS v4
-- **UI**: Custom components + Radix UI primitives
 
 ### Luma API Integration
 
-`components/EventList.tsx` is an async server component that fetches events from `https://public-api.luma.com/v1/calendar/list-events` using the `LUMA_API_KEY` env var (set in `.env.local`, template in `.env.local.template`). Response shape: `{ entries: [{ api_id, event: { name, start_at, cover_url, url } }] }`.
+`components/EventList.tsx` exports `fetchEvents()` which calls `https://public-api.luma.com/v1/calendar/list-events` using the `LUMA_API_KEY` env var (set in `.env.local`, template in `.env.local.template`). On API failure it logs and returns an empty array so the build still succeeds. Response shape: `{ entries: [{ api_id, event: { name, start_at, cover_url, url } }] }`.
 
-`app/calendar/page.tsx` embeds a Luma calendar via iframe.
+`pages/index.tsx` calls `fetchEvents()` from `getStaticProps` with `revalidate: 60`. `pages/calendar.tsx` and `pages/iframe.tsx` are static pages embedding Luma via iframe.
